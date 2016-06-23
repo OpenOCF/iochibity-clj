@@ -1,0 +1,2 @@
+# examples
+Iotivity sample code
