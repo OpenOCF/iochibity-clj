@@ -2,20 +2,19 @@
 
 #set -x
 
-IOT=/usr/local/lib/iotivity/1.1
+IOTIVITY_LIBPATH=$IOTIVITY_HOME/out/darwin/x86_64/release
 
-CHIBI=${IOTIVITY_HOME}/out/darwin/x86_64/release
-
-JLP="$IOT"
+#IOTIVITY_JNI=/usr/local/lib/iotivity/1.1
+IOTIVITY_JNI=$HOME/iotivity/kit/java/jni
 
 if [ -d "$IOTIVITY_HOME" ];
 then
-        if [ -d "$JLP" ]
+        if [ -d "$IOTIVITY_JNI" ]
 	then
 	        echo "Starting repl with java.library.path = $JLP"
 	else
 	        echo "java.library.path not found: $JLP";
-	        exit
+	        # exit
 	fi
 else
 	echo "IOTIVITY_HOME ($IOTIVITY_HOME) not found."
@@ -28,4 +27,4 @@ fi
 
 export DYLD_LIBRARY_PATH=$JLP
 
-BOOT_JVM_OPTIONS="$OPTS -Djava.library.path='$JLP'" boot "$@"
+BOOT_JVM_OPTIONS="$OPTS -Djava.library.path=$IOTIVITY_JNI:$IOTIVITY_LIBPATH" boot "$@"
