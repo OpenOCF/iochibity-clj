@@ -1,3 +1,5 @@
 # Iotivity Clojure SDK
 
+See the minimal example.
+
 
