@@ -1,0 +1,59 @@
+= iotivity clojure sdk: minimal example
+
+FIXME: description
+
+== Usage
+
+Build the project
+
+[source,sh]
+----
+$ mvn package
+----
+
+Run it:
+
+[source,sd]
+----
+$ ./boot.sh cider repl
+----
+
+NOTE: For this to work you need to put the following in `~/.boot/profile.boot`:
+
+[source,clojure]
+----
+(deftask cider "CIDER profile"
+  []
+  (require 'boot.repl)
+  (swap! @(resolve 'boot.repl/*default-dependencies*)
+         concat '[[cider/cider-nrepl "0.12.0"]
+                  #_[refactor-nrepl "2.0.0-SNAPSHOT"]])
+  (swap! @(resolve 'boot.repl/*default-middleware*)
+         concat '[cider.nrepl/cider-middleware
+                  #_refactor-nrepl.middleware/wrap-refactor])
+  identity)
+
+----
+
+## Options
+
+FIXME: listing of options this app accepts.
+
+## Examples
+
+...
+
+### Bugs
+
+...
+
+### Any Other Sections
+### That You Think
+### Might be Useful
+
+## License
+
+Copyright © 2016 FIXME
+
+Distributed under the Eclipse Public License either version 1.0 or (at
+your option) any later version.
