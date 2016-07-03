@@ -7,6 +7,8 @@ IOTIVITY_LIBPATH=$IOTIVITY_HOME/out/darwin/x86_64/release
 #IOTIVITY_JNI=/usr/local/lib/iotivity/1.1
 IOTIVITY_JNI=$HOME/iotivity/kit/java/jni
 
+JLP=$IOTIVITY_LIBPATH
+
 if [ -d "$IOTIVITY_HOME" ];
 then
         if [ -d "$IOTIVITY_JNI" ]
@@ -27,4 +29,4 @@ fi
 
 export DYLD_LIBRARY_PATH=$JLP
 
-BOOT_JVM_OPTIONS="$OPTS -Djava.library.path=$IOTIVITY_JNI:$IOTIVITY_LIBPATH" boot "$@"
+BOOT_JVM_OPTIONS="$OPTS -Djava.library.path=$JLP" boot "$@"
