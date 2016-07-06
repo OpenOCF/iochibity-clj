@@ -33,6 +33,7 @@
   OcPlatform$OnPlatformFoundListener
   (onPlatformFound [this, representation] ;; ^OcRepresentation
     (println "onPlatformFound")
+    (println (str "Host: " (.getHost representation)))
     )
 
   OcPlatform$OnDeviceFoundListener
