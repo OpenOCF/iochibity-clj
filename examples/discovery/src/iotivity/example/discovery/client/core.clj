@@ -20,8 +20,6 @@
            [java.util EnumSet HashMap List Map]
            ))
 
-(clojure.lang.RT/loadLibrary "ocstack-jni")
-
 (deftype Client []
   OcPlatform$OnResourceFoundListener
   (onResourceFound [this, resource]
