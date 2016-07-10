@@ -1,12 +1,12 @@
-# WRLinux sourcing file
+# Edison sourcing file
 
-export JAVA_HOME=/usr/lib64/jvm/java-8-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 export IOTIVITY_HOST_OS=linux
-export IOTIVITY_HOST_ARCH=x86_64
+export IOTIVITY_HOST_ARCH=x86
 
 export IOTIVITY_TARGET_OS=linux
-export IOTIVITY_TARGET_ARCH=x86_64
+export IOTIVITY_TARGET_ARCH=x86
 
 export IOTIVITY_STAGE=release
 

@@ -1,4 +1,6 @@
-# linux source file
+# ubuntu source file
+
+export JAVA_HOME=/usr/lib/jvm/default-java
 
 export IOTIVITY_HOST_OS=linux
 export IOTIVITY_HOST_ARCH=x86_64
