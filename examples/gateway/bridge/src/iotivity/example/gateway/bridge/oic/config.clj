@@ -40,7 +40,6 @@
         (do ;; Log.e(TAG, e.toString());
           (println "Failed to register platform info."))))))
 
-
 (defn register-device
   []
   (let [device (OcDeviceInfo. "bridgeDevice1" "0.1.0" "sh.1.0")]

@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-#set -x
-
-#IOTIVITY_LIBPATH=$IOTIVITY_HOME/out/darwin/x86_64/release
-
-#IOTIVITY_JNI=/usr/local/lib/iotivity/1.1
-
-JLP=
-
 if [ -d "$IOTIVITY_LIBPATH" ];
 then
         if [ -d "$IOTIVITY_JNIPATH" ]
