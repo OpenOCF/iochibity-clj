@@ -1,0 +1,37 @@
+= notes
+
+
+PlatformInfo:
+
+    platform id is required
+    manufacturer name required, max len = 16
+    manufacturer url max len = 32
+
+[source,clj]
+----
+(defn oicresource->edn
+  [^OcResource r]
+  {:thread (.getId (Thread/currentThread))
+   :host (.getHost r)
+   :uri  (.getUri  r)
+   :unique-id (.getUniqueIdentifier r)
+   :server-id (.getServerId r)
+   :observable? (.isObservable r)
+   :ts   (vec (.getResourceTypes r))
+   :ifs  (vec (.getResourceInterfaces r))
+   :cts  (.getConnectivityTypeSet r)})    ;;  EnumSet<OcConnectivityType>
+
+----
+
+
+
+[source,clojure]
+----
+(defn oicrep->edn
+  [^OcRepresentation rep]
+  {:host (.getHost rep)
+   :uri  (.getUri  rep)
+   :sz   (.size    rep)
+   :ts   (vec (.getResourceTypes rep))
+   :ifs  (vec (.getResourceInterfaces rep))
+   :props (.getValues rep)})

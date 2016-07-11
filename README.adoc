@@ -3,3 +3,12 @@
 See the minimal example.
 
 
+WARNING: If you use https://github.com/intel-iot-devkit/mraa[mraa],
+you need to run as root. No way around this at the moment; libmraa
+must have root privileges in order to diddle the pins.
+
+WARNING: If you're working on an Edison, be prepared to wait at
+startup. Especially the first time you run boot, a raft of maven jars
+will be downloaded and installed in your local maven repo
+(`~/.m2/repository`).  This takes many minutes. It only happens the
+first time.
