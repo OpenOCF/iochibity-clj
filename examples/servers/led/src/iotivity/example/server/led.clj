@@ -29,9 +29,9 @@
 (defn start
   []
   (println "OIC LED server starting...")
-  (clojure.lang.RT/loadLibrary "iotivity-jni")
-  ;; (clojure.lang.RT/loadLibrary "mraajava")
   (config/initialize)
+  ;; (clojure.lang.RT/loadLibrary "mraajava")
+  ;; (mraa/initialize)
   )
 
 (start)

@@ -11,12 +11,14 @@
 
 (defn initialize
   []
-  (println "initializing bridge OIC stack")
+  (println "loading iotivity-jni...")
+  (clojure.lang.RT/loadLibrary "iotivity-jni")
+  (println "configuring platform...")
   (let [pc (PlatformConfig. ServiceType/IN_PROC
                             ModeType/SERVER
                             "0.0.0.0"             ;; bind to all available interfaces
                             0                     ;; use randomly available port
-                            QualityOfService/LOW)]
+                            QualityOfService/HIGH)]
     (OcPlatform/Configure pc)))
 
 (defn register-platform
@@ -24,7 +26,7 @@
   (let [platform-info
         (OcPlatformInfo.
          "bPlatformId"
-         "bManufactName"
+         "bMfgName"
          "www.bridgeurl.com"
          "bridgeModelNumber"
          "bridgeDateOfManufacture"
