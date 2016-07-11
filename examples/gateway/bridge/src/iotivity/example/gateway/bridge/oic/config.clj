@@ -11,9 +11,9 @@
 
 (defn initialize
   []
-  (println "initializing bridge OIC stack")
+  (println "initializing bridge OIC stack in mode " (.getValue (ModeType/SERVER)))
   (let [pc (PlatformConfig. ServiceType/IN_PROC
-                            ModeType/CLIENT
+                            ModeType/SERVER
                             "0.0.0.0"             ;; bind to all available interfaces
                             0                     ;; use randomly available port
                             QualityOfService/LOW)]
@@ -23,8 +23,8 @@
   []
   (let [^OcPlatformInfo platform-info
         (OcPlatformInfo.
-         "bridgePlatformId"
-         "bridgeManufactName"
+         "bPlatformId"
+         "bManufactName"
          "www.bridgeurl.com"
          "bridgeModelNumber"
          "bridgeDateOfManufacture"
@@ -37,8 +37,9 @@
     (try
       (OcPlatform/registerPlatformInfo platform-info)
       (catch OcException e
-        (do ;; Log.e(TAG, e.toString());
-          (println "Failed to register platform info."))))))
+        (do
+          (println "Failed to register platform info.")
+          (println (.toString e)))))))
 
 (defn register-device
   []

@@ -30,13 +30,15 @@
   []
   (println "OIC LED server starting...")
   (clojure.lang.RT/loadLibrary "iotivity-jni")
-  (clojure.lang.RT/loadLibrary "mraajava")
+  ;; (clojure.lang.RT/loadLibrary "mraajava")
   (config/initialize)
-  ;;(config/register-platform)
-  ;;(config/register-device)
   )
 
 (start)
+
+(config/register-platform)
+
+(config/register-device)
 
 (def led-uri-geras "/geras/led/")
 (def led-geras-name "Geras LED")
@@ -47,9 +49,6 @@
                                            gled
                                            (EnumSet/of ResourceProperty/DISCOVERABLE
                                                        ResourceProperty/OBSERVABLE)))
-
-
-
 
 (def led-uri-a "/a/led/")
 (def led-name "a John's led")
@@ -65,8 +64,16 @@
                                              (EnumSet/of ResourceProperty/DISCOVERABLE
                                                          ResourceProperty/OBSERVABLE)))
 
+(def led-uri-b "/b/led/")
+(def led-name "b John's led")
+(def bled (led/make-led led-uri-b led-name))
 
-
+(def led-handle (OcPlatform/registerResource (:uri bled)
+                                             (:type bled)
+                                             (:interface bled)
+                                             bled
+                                             (EnumSet/of ResourceProperty/DISCOVERABLE
+                                                         ResourceProperty/OBSERVABLE)))
 
 (defn stop
   []

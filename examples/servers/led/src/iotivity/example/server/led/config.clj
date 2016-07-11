@@ -21,10 +21,10 @@
 
 (defn register-platform
   []
-  (let [^OcPlatformInfo platform-info
+  (let [platform-info
         (OcPlatformInfo.
-         "bridgePlatformId"
-         "bridgeManufactName"
+         "bPlatformId"
+         "bManufactName"
          "www.bridgeurl.com"
          "bridgeModelNumber"
          "bridgeDateOfManufacture"
@@ -36,9 +36,11 @@
          (str (System/currentTimeMillis)))]
     (try
       (OcPlatform/registerPlatformInfo platform-info)
+      (println "registered platform")
       (catch OcException e
-        (do ;; Log.e(TAG, e.toString());
-          (println "Failed to register platform info."))))))
+        (do
+          (println "Failed to register platform info.")
+          (println "EXC: " (.toString e)))))))
 
 (defn register-device
   []
@@ -46,4 +48,5 @@
     (try
       (OcPlatform/registerDeviceInfo device)
       (catch Exception e
-        (prn "caught: " e)))))
+        (prn "caught: " e)))
+    (println "registered device")))
