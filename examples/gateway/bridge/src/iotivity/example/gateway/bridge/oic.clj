@@ -18,17 +18,18 @@
             PlatformConfig
             QualityOfService
             ServiceType]
-           [java.util EnumSet])) ;; HashMap List Map]
-            ;; ErrorCode
-            ;; ModeType
-            ;; PlatformConfig
-           ;;  ObserveType
-           ;;  OcException
-           ;;  OcHeaderOption
-           ;;  OcResource
-           ;;  OcResourceIdentifier
-           ;;  QualityOfService
-           ;;  ServiceType]
+           [java.util EnumSet]))
+;; HashMap List Map]
+;; ErrorCode
+;; ModeType
+;; PlatformConfig
+;;  ObserveType
+;;  OcException
+;;  OcHeaderOption
+;;  OcResource
+;;  OcResourceIdentifier
+;;  QualityOfService
+;;  ServiceType]
 
 (println "reloading")
 
@@ -233,11 +234,13 @@
 
 (defn start
   []
-  (println "OIC server starting...")
+  (println "OIC Gateway server starting...")
   (clojure.lang.RT/loadLibrary "iotivity-jni")
-  (config/initialize))
+  (config/initialize)
+  (config/register-platform)
+  #_(config/register-device))
 
 (defn stop
   []
-  (println "OIC server shutting down...")
+  (println "OIC Gateway bridge shutting down...")
   )
