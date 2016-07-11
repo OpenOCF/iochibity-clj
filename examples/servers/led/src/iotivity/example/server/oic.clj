@@ -20,7 +20,6 @@
             ServiceType]
            [java.util EnumSet]))
 
-
 (def plock (Object.))
 
 (defrecord Platform
@@ -63,7 +62,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (def rlock (Object.))
 
-(defrecord Resource
+(defrecord Client
     [channel]
   OcPlatform$OnResourceFoundListener
   (onResourceFound [this, resource]  ;; OcResource

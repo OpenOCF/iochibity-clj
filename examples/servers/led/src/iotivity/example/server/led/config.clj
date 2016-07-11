@@ -1,4 +1,4 @@
-(ns iotivity.example.server.oic.config
+(ns iotivity.example.server.led.config
   (:import [org.iotivity.base
             ModeType
             OcDeviceInfo
@@ -13,7 +13,7 @@
   []
   (println "initializing bridge OIC stack")
   (let [pc (PlatformConfig. ServiceType/IN_PROC
-                            ModeType/CLIENT
+                            ModeType/SERVER
                             "0.0.0.0"             ;; bind to all available interfaces
                             0                     ;; use randomly available port
                             QualityOfService/LOW)]

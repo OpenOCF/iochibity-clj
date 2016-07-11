@@ -1,12 +1,15 @@
-(def project 'iotivity-discover)
+(def project 'iotivity.examples.servers/led)
 (def version "0.1.0-SNAPSHOT")
 
 (set-env! :resource-paths #{"src"}
-          :source-paths   #{"test"}
+          ;; :source-paths   #{"test"}
+          :checkouts      '[[iotivity.sensor/led "0.1.0-SNAPSHOT"]]
           :dependencies   '[[org.clojure/clojure "RELEASE"]
                             [org.clojure/tools.namespace "0.3.0-alpha3"]
                             [org.clojure/core.async "0.2.385"]
                             [iotivity/iotivity-api "1.1.1-SNAPSHOT"]
+                            [iotivity.sensor/led "0.1.0-SNAPSHOT"]
+                            [mraa/mraa "0.1.0-SNAPSHOT"]
                             [org.apache.commons/commons-daemon "1.0.9"]
                             [adzerk/boot-jar2bin "1.1.0" :scope "test"]
                             [adzerk/boot-test "RELEASE" :scope "test"]])

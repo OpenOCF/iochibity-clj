@@ -1,4 +1,4 @@
-(ns iotivity.example.server.light.light
+(ns iotivity.sensor.led
   (:import [org.iotivity.base
             EntityHandlerResult
             OcPlatform
@@ -7,27 +7,6 @@
             OcResourceRequest
             RequestHandlerFlag
             ]))
-
-(defn examine-oc-resource-request
-  [request]
-  ;; resource/include/OCResourceRequest.h:
-    ;; private:
-    ;;     std::string m_requestType;
-    ;;     std::string m_resourceUri;
-    ;;     QueryParamsMap m_queryParameters;
-    ;;     int m_requestHandlerFlag;
-    ;;     OCRepresentation m_representation;
-    ;;     ObservationInfo m_observationInfo;
-    ;;     HeaderOptions m_headerOptions;
-    ;;     OCRequestHandle m_requestHandle;
-    ;;     OCResourceHandle m_resourceHandle;
-  (println "resource-request summary:")
-  (println (str "request-type: " (.getRequestType request)))
-  (println (str "resource-uri: " (.getResourceUri request)))
-  (println (str "request-handle: " (.getRequestHandle request)))
-  (println (str "resource-handle: " (.getResourceHandle request)))
-  ;; etc.
-  )
 
 (defn service-create-request
   [request]
@@ -66,25 +45,6 @@
       (println "Query processing is up to entityHandler"))
     (doseq [entry (.entrySet query-params)]
       (println (str "Query key: "  (.getKey entry)  " value: " (.getValue entry)))))
-
-  ;; CRUDN dispatch
-  ;; CRUDN to CoAP mapping: both CREATE and UPDATE may map to either
-  ;; POST or PUT, depending on whether the target URI already exists
-  ;; on the server:
-
-  ;; POST with exisiting URI, with complete resource rep in payload
-  ;;                         -> CREATE new resource with new (server-generated) URI
-  ;; POST with exisiting URI, with partial resource rep in payload
-  ;;                         -> UPDATE (i.e. MODIFY) existing resource
-  ;; POST with new URI       -> "Resource not found" error
-
-  ;; PUT  with new URI       -> CREATE
-  ;; PUT  with exisiting URI -> UPDATE - i.e. REPLACE in toto
-  ;; In summary, PUT means create or replace, POST means create or modivy
-
-  ;; NOTE: as per the above this dispatch logic is incorrect, but
-  ;; we'll stick with it for now since it matches the original Java
-  ;; example code
   #_(condp = (.getRequestType request)
     RequestType/PUT (service-create-request request)
     RequestType/GET (service-retrieve-request request)
@@ -93,7 +53,7 @@
   EntityHandlerResult/OK
   )
 
-(defrecord OICLight
+(defrecord OICLed
     [^String uri, ^String type, ^String interface, ^OcResourceHandle handle,
      ^String name, ^Boolean state, ^Integer power
      ^Boolean discoverable?, ^Boolean observable?]
@@ -123,7 +83,7 @@
         (do (println "\t\tRequest Flag: OBSERVER")
             (service-notify-request request))))))
 
-(defn make-light
+(defn make-led
   [uri name & {:keys [type interface handle
                       state power discoverable? observable?]
              :or {state false
@@ -133,5 +93,5 @@
                   discoverable? true
                   observerable? true
                   handle nil}}]
-  (println "uri: " uri)
-  (OICLight. uri type interface handle name state power discoverable? observable?))
+  (OICLed. uri type interface handle name state power discoverable? observable?))
+

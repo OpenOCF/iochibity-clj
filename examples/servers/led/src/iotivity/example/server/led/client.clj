@@ -64,7 +64,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (def rlock (Object.))
 
-(defrecord Resource
+(defrecord Client
     [channel]
   OcPlatform$OnResourceFoundListener
   (onResourceFound [this, resource]  ;; OcResource
@@ -79,7 +79,10 @@
               (println "PUT FAIL" (.getId (Thread/currentThread))))))))
         ;; (a/close! channel))))
         ;;(a/go (a/>! channel (oicresource->edn resource))))))
+  )
 
+(defrecord Resource
+    [channel]
   OcResource$OnGetListener
   (onGetCompleted [this ;;List<OcHeaderOption>
                    headerOptionList
