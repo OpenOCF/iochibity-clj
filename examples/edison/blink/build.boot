@@ -1,29 +1,16 @@
-(def project 'iotivity-discover)
+(def project 'iot)
 (def version "0.1.0-SNAPSHOT")
 
 (set-env! :resource-paths #{"src"}
           :source-paths   #{"test"}
           :dependencies   '[[org.clojure/clojure "RELEASE"]
                             [org.clojure/tools.namespace "0.3.0-alpha3"]
-                            [org.clojure/core.async "0.2.385"]
                             [iotivity/iotivity-api "1.1.3-SNAPSHOT"]
                             [org.apache.commons/commons-daemon "1.0.9"]
-                            [adzerk/boot-jar2bin "1.1.0" :scope "test"]
                             [adzerk/boot-test "RELEASE" :scope "test"]])
 
-(require '[adzerk.boot-jar2bin :refer :all])
-
-(def jlp (System/getenv "JLP"))
-(println (str "JLP: " jlp))
-
-(def jvm-opts #{(str "-Djava.library.path=" jlp)
-                "-Xms512m"
-                "-Xmx1024m"})
-
 (task-options!
- aot {:namespace   #{'iotivity.example.discovery.server.core}}
- bin {:jvm-opt jvm-opts}
- exe {:jvm-opt jvm-opts}
+ aot {:namespace   #{'iot.core}}
  pom {:project     project
       :version     version
       :description "FIXME: write description"
@@ -31,7 +18,7 @@
       :scm         {:url "https://github.com/yourname/iot"}
       :license     {"Eclipse Public License"
                     "http://www.eclipse.org/legal/epl-v10.html"}}
- jar {:main        'iotivity.example.discovery.server.core
+ jar {:main        'iot.core
       :file        (str "iot-" version "-standalone.jar")})
 
 (deftask build

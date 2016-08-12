@@ -4,6 +4,7 @@
 (set-env! :resource-paths #{"src"}
           :source-paths   #{"test"}
           :dependencies   '[[org.clojure/clojure "RELEASE"]
+                            [org.clojure/core.async "0.2.385"]
                             [adzerk/boot-test "RELEASE" :scope "test"]])
 
 (task-options!

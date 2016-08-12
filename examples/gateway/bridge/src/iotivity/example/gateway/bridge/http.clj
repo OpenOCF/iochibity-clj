@@ -16,7 +16,7 @@
   [req]
   (println "http/oic-platform-handler")
   (let [result (a/chan)
-        p (oic/->Platform result)]
+        p (oic/->PlatformDiscoveryService result)]
     (oic/discover-platforms nil p)
     {:status 200
      :headers {"content-type" "text/plain"}
@@ -27,7 +27,7 @@
   [req]
   (println "http/oic-device-handler")
   (let [result (a/chan)
-        p (oic/->Device result)]
+        p (oic/->DeviceDiscoveryService result)]
     (oic/discover-devices nil p)
     {:status 200
      :headers {"content-type" "text/plain"}
@@ -38,16 +38,16 @@
   [req]
   (println "http/oic-resource-handler")
   (let [result (a/chan 10)
-        r (oic/->Resource result)
+        r (oic/->ResourceDiscoveryService result)
         out (a/chan)]
     (oic/discover-resources r)
     (a/go-loop []
       (if-let [r (a/<! result)]
         (do
-          ;; (println "TOOK")
+          (println "TOOK")
           (a/>! out (pr-str r))
           (recur))
-        (do ;; (println "CLOSING")
+        (do (println "CLOSING")
             (a/close! result)
             (a/close! out))))
     {:status 200
@@ -70,3 +70,5 @@
 (defn stop
   []
   (.close s))
+
+(println "loaded http")

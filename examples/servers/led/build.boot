@@ -10,7 +10,8 @@
                             [iotivity/iotivity-api "1.1.2-SNAPSHOT"]
                             [iotivity.sensor/led "0.1.0-SNAPSHOT"]
                             [mraa/mraa "0.1.0-SNAPSHOT"]
-                            [org.apache.commons/commons-daemon "1.0.9"]
+                            ;; [iotk/tinyb "1.1.0-SNAPSHOT"]
+                            ;; [org.apache.commons/commons-daemon "1.0.9"]
                             [adzerk/boot-jar2bin "1.1.0" :scope "test"]
                             [adzerk/boot-test "RELEASE" :scope "test"]])
 

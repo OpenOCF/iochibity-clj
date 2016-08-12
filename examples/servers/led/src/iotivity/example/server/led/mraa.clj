@@ -1,4 +1,5 @@
 (ns iotivity.minimal.server.led.mraa
+  (:require [clojure.core.async :as a])
   (:import [mraa Aio Dir Gpio mraa Platform Result Uart UartParity]))
 
 (clojure.lang.RT/loadLibrary "mraajava")
@@ -30,13 +31,36 @@
 
 (.write gpio-led 0)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; OH090U Hall Effect Sensor
+
+(def gpio-hall (Gpio. 8))
+
+(println "gpio-hall pin: " (str (.getPin gpio-hall false)))
+
+(println "gpio-hall pin (raw): " (str (.getPin gpio-hall true)))
+
+(.dir gpio-hall Dir/DIR_IN)
+
+(def ^:dynamic *running* (atom false))
+
+(reset! *running* true)
+
+(a/go
+  (while @*running*
+    (let [hall (.read gpio-hall)]
+      (println "HALL: " hall)
+      (Thread/sleep 1000))))
+
+(reset! *running* false)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; HC-SR501 PIR motion detector
 (def motion (Aio. 0))
 
 (dotimes [n 200]
   (let [i (.read motion)
-        f (.readFloat a2)]
+        f (.readFloat motion)]
     (println (format "%d ADC Motion read %X - %d (%.5f)" n i i f))
     (Thread/sleep 100)))
 

@@ -9,11 +9,13 @@
             QualityOfService
             ServiceType]))
 
+(println "loading bridge config")
+
 (defn initialize
-  []
-  (println "initializing bridge OIC stack in mode " (.getValue (ModeType/SERVER)))
+  [mode]
+  (println "initializing bridge OIC stack in mode " (.getValue mode))
   (let [pc (PlatformConfig. ServiceType/IN_PROC
-                            ModeType/SERVER
+                            mode
                             "0.0.0.0"             ;; bind to all available interfaces
                             0                     ;; use randomly available port
                             QualityOfService/LOW)]

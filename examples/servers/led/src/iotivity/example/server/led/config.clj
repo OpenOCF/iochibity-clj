@@ -27,14 +27,14 @@
         (OcPlatformInfo.
          "bPlatformId"
          "bMfgName"
-         "www.bridgeurl.com"
-         "bridgeModelNumber"
-         "bridgeDateOfManufacture"
-         "bridgePlatformVersion"
+         "www.ledurl.com"
+         "ledModelNumber"
+         "ledDateOfManufacture"
+         "ledPlatformVersion"
          "Manufacturer OS version"
-         "bridgeHardwareVersion"
-         "bridgeFirmwareVersion"
-         "www.bridgesupporturl.com"
+         "ledHardwareVersion"
+         "ledFirmwareVersion"
+         "www.ledsupporturl.com"
          (str (System/currentTimeMillis)))]
     (try
       (OcPlatform/registerPlatformInfo platform-info)
@@ -46,9 +46,11 @@
 
 (defn register-device
   []
-  (let [device (OcDeviceInfo. "bridgeDevice1" "0.1.0" "sh.1.0")]
+  (let [device (OcDeviceInfo. "ledDevice1" "0.1.0" "sh.1.0")]
     (try
       (OcPlatform/registerDeviceInfo device)
       (catch Exception e
         (prn "caught: " e)))
     (println "registered device")))
+
+(println "loaded led config")

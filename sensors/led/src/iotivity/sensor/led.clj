@@ -6,6 +6,7 @@
             OcResourceHandle
             OcResourceRequest
             RequestHandlerFlag
+            RequestType
             ]))
 
 (defn service-create-request
@@ -35,7 +36,7 @@
 
 (defn dispatch-request
   [request]
-  (println "dispatch-request")
+  (println "dispatch-request: " (.getResourceUri request))
   ;; Check for query params (if any)
   ;; Map<String, String> queries = request.getQueryParameters();
   (let [query-params (.getQueryParameters request)]
@@ -45,7 +46,7 @@
       (println "Query processing is up to entityHandler"))
     (doseq [entry (.entrySet query-params)]
       (println (str "Query key: "  (.getKey entry)  " value: " (.getValue entry)))))
-  #_(condp = (.getRequestType request)
+  (condp = (.getRequestType request)
     RequestType/PUT (service-create-request request)
     RequestType/GET (service-retrieve-request request)
     RequestType/POST (service-update-request request)
@@ -54,7 +55,7 @@
   )
 
 (defrecord OICLed
-    [^String uri, ^String type, ^String interface, ^OcResourceHandle handle,
+    [^String uri, ^String t, ^String interface, ^OcResourceHandle handle,
      ^String name, ^Boolean state, ^Integer power
      ^Boolean discoverable?, ^Boolean observable?]
   OcPlatform$EntityHandler
@@ -84,14 +85,16 @@
             (service-notify-request request))))))
 
 (defn make-led
-  [uri name & {:keys [type interface handle
+  [name uri t & {:keys [interface handle
                       state power discoverable? observable?]
              :or {state false
                   power 0
-                  type "core.light"
+                  t t
                   interface OcPlatform/DEFAULT_INTERFACE
                   discoverable? true
                   observerable? true
                   handle nil}}]
-  (OICLed. uri type interface handle name state power discoverable? observable?))
+  (println (format "making led name %s, uri %s, type %s" name uri t))
+  (OICLed. uri t interface handle name state power discoverable? observable?))
 
+(println "led sensor loaded")

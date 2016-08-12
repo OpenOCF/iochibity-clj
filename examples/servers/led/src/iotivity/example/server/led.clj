@@ -40,42 +40,61 @@
 
 (config/register-device)
 
-(def led-uri-geras "/geras/led/")
+(def res-prop (java.util.EnumSet/of ResourceProperty/DISCOVERABLE
+                                    ResourceProperty/OBSERVABLE))
+
+(def led-t-light "core.light")
+
+(def led-uri-light "/a/light")
+(def led-name-light "Geras Light")
+(def light (led/make-led led-name-light led-uri-light led-t-light))
+(def l-handle (OcPlatform/registerResource (:uri light)
+                                           (:t light)
+                                           (:interface light)
+                                           light
+                                           (EnumSet/of ResourceProperty/DISCOVERABLE
+                                                       ResourceProperty/OBSERVABLE)))
+
+(def led-uri-geras "/geras/led")
 (def led-geras-name "Geras LED")
-(def gled (led/make-led led-uri-geras led-geras-name))
+(def gled (led/make-led led-geras-name led-uri-geras led-t-light))
 (def g-handle (OcPlatform/registerResource (:uri gled)
-                                           (:type gled)
+                                           (:t gled)
                                            (:interface gled)
                                            gled
                                            (EnumSet/of ResourceProperty/DISCOVERABLE
                                                        ResourceProperty/OBSERVABLE)))
 
-(def led-uri-a "/a/led/")
-(def led-name "a John's led")
-(def aled (led/make-led led-uri-a led-name))
+(type gled)
 
-(def es (java.util.EnumSet/of ResourceProperty/DISCOVERABLE
-                              ResourceProperty/OBSERVABLE))
+;; "core.light"
 
-(def led-handle (OcPlatform/registerResource (:uri aled)
-                                             (:type aled)
-                                             (:interface aled)
-                                             aled
-                                             (EnumSet/of ResourceProperty/DISCOVERABLE
-                                                         ResourceProperty/OBSERVABLE)))
+(def led-name2 "Geras led 2")
+(def led-uri-geras2 "/geras/led/2")
 
-(def led-uri-b "/b/led/")
-(def led-name "b John's led")
-(def bled (led/make-led led-uri-b led-name))
+(def gled2 (led/make-led led-name2 led-uri-geras2 led-t-light))
 
-(def led-handle (OcPlatform/registerResource (:uri bled)
-                                             (:type bled)
-                                             (:interface bled)
-                                             bled
-                                             (EnumSet/of ResourceProperty/DISCOVERABLE
-                                                         ResourceProperty/OBSERVABLE)))
+(def gled2-handle (OcPlatform/registerResource (:uri gled2)
+                                               (:t gled2)
+                                               (:interface gled2)
+                                               gled2
+                                               res-prop))
+
+(def led-uri-geras3 "/geras/led/3")
+(def led-name3 "Geras led 3")
+
+(def gled3 (led/make-led led-name3 led-uri-geras3 led-t-light))
+
+(def gled3-handle (OcPlatform/registerResource (:uri gled3)
+                                             (:t gled3)
+                                             (:interface gled3)
+                                             gled3
+                                             res-prop))
+
 
 (defn stop
   []
   (println "OIC server shutting down...")
   )
+
+(println "led server loaded")
