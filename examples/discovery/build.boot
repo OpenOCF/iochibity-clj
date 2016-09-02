@@ -24,6 +24,8 @@
  aot {:namespace   #{'iotivity.example.discovery.server.core}}
  bin {:jvm-opt jvm-opts}
  exe {:jvm-opt jvm-opts}
+ jar {:main        'iotivity.example.discovery.server.core
+      :file        (str "iot-" version "-standalone.jar")}
  pom {:project     project
       :version     version
       :description "FIXME: write description"
@@ -31,8 +33,7 @@
       :scm         {:url "https://github.com/yourname/iot"}
       :license     {"Eclipse Public License"
                     "http://www.eclipse.org/legal/epl-v10.html"}}
- jar {:main        'iotivity.example.discovery.server.core
-      :file        (str "iot-" version "-standalone.jar")})
+ repl {:port 8088})
 
 (deftask build
   "Build the project locally as a JAR."

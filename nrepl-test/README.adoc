@@ -1,0 +1,94 @@
+= nrepl test
+
+Minimal test code to verify functioning nrepl on remote device,
+without Iotivity dependencies.
+
+== Usage
+
+1.  Configure target device to use cider (or whatever your editor needs).
+
+  * copy profile.boot to target:~/.boot
+
+  * set JAVA_HOME on target (Edison: /usr/lib/jvm/java-8-opensdk)
+
+2. Copy (scp) build.boot to target device.
+
+3. Do _not_ copy source code over to target device!  Note that
+`:source-paths` and `:resource-paths` are missing in `build.boot`.
+That's because we do not want the rREPL server looking for code on the
+remote device.
+
+4. On target, run `$ boot cider repl`
+
+5. On dev host, open `src/nrepl_test/core.clj` and connect to remote nrepl.
+
+6.  A cider-repl buffer will (eventually) open.  In it, run `(println
+(System/getProperty "os.name"))`, which should print the OS name of the remote device.
+
+=== edison notes
+
+The Edison has two USB ports.  The one closest to the edge of the
+board makes a serial connection.  The other one makes an IP-over-USB
+connection, default IP `192.168.2.15` on interface `usb0`.  If you
+also connect to a WiFi network, you'll also get an IP address on
+interface `wlan0`, so you end up with three possible ways to connect.
+
+If you connect using `screen`, you'll go through the serial
+connection; if you connect using `ssh` you can go through the IP/USB
+link (a 'direct' connection) or you can go through the WiFi network
+(assuming your dev machine is on the same network.)  The latter is
+much faster.
+
+You can see the difference by connecting cider to the two different IP
+addresses.  If you `cider-connect` to `192.168.2.15`, cider will try
+to establish a "direct" connection.  If you `cider-connect` to the
+`wlan0` IP, cider will try to establish a "tunneled ssh" connection.
+
+== troubleshooting
+
+"Could not find artifact" - check the version numbers of the
+dependencies in `build.boot`, and the `*default-dependencies*` in
+profile.boot.
+
+==== connecting
+"Establishing direct connection ..." hangs.
+
+"Establishing tunneled ssh connection ..." hangs.
+
+First: be patient.  It can take a relatively long time to make the
+connection.
+
+In both cases, run `keyboard-quit` (C-h) and try again.  If you're
+using a symbolic name (e.g. edison.local) try using an explicit IP
+(e.g. 192.168.2.15).
+
+Restart Emacs.
+
+Launch the nrepl from a serial connection (i.e. using `screen` to connect.)
+
+==== evaluating
+
+"error in process filter: Wrong type argument ..." or similar.
+
+=== Options
+
+FIXME: listing of options this app accepts.
+
+## Examples
+
+...
+
+### Bugs
+
+...
+
+### Any Other Sections
+### That You Think
+### Might be Useful
+
+## License
+
+Copyright © 2016 FIXME
+
+Distributed under the Eclipse Public License either version 1.0 or (at
+your option) any later version.

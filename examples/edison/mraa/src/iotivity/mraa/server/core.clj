@@ -124,7 +124,7 @@
     (try
       (.setValue rep NAME_KEY "mName")
       (.setValue rep STATE_KEY true)
-      (.setValue rep POWER_KEY 20)
+      (.setValue rep POWER_KEY 30)
       (catch OcException e
         (prn "Failed to set representation values")
         (prn e)))

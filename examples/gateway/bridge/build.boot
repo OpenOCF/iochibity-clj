@@ -5,7 +5,7 @@
           :dependencies   '[[org.clojure/clojure "RELEASE"]
                             [org.clojure/tools.namespace "0.3.0-alpha3"]
                             [org.clojure/core.async "0.2.385"]
-                            [iotivity/iotivity-api "1.1.2-SNAPSHOT"]
+                            [iotivity/iotivity-api "1.1.3-SNAPSHOT"]
                             [aleph "0.4.2-alpha1"]
                             ;; [aleph "0.4.1"]
                             [gloss "0.2.5"]
